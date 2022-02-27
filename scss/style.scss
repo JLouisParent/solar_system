@@ -1,0 +1,72 @@
+body {
+    //background-image: url('background.jpg');
+    background-color: #222;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.solarSystem {
+    position: absolute;
+    height: 1500px;
+    width: 1500px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+
+.star {
+
+    position: relative;
+
+    background-color: yellow;
+    border-radius: 50%;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit {
+    position: absolute;
+
+
+    border-radius: 50%;
+
+    border: solid 1px rgba(255, 255, 255, 0.7);
+
+    left: 50%;
+    top: 50%;
+
+    //transform: translate(-50%, -50%);
+    // animation: spin 4s linear infinite;
+
+}
+
+
+.planet {
+    position: absolute;
+
+
+    border-radius: 50%;
+
+    background-color: rgba(255, 255, 255, 0.7);
+
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+
+
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate3d(0, 0, 1, 360deg);
+    }
+}
