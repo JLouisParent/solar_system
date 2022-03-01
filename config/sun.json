@@ -1,0 +1,76 @@
+{
+    "config": {
+        "speed": 1
+    },
+    "star": {
+        "name": "Sun",
+        "size": 100
+    },
+    "planets": [
+        {
+            "name": "Mercury",
+            "size": 6,
+            "distance": 190,
+            "orbitDirection": 1,
+            "planetRotation": 1
+        },
+        {
+            "name": "Venus",
+            "size": 12,
+            "distance": 245,
+            "orbitDirection": 1,
+            "planetRotation": -1
+        },
+        {
+            "name": "Earth",
+            "size": 13,
+            "distance": 280,
+            "orbitDirection": 1,
+            "planetRotation": 1,
+            "moons": [
+                {
+                    "name": "Moon",
+                    "size": 3,
+                    "distance": 50,
+                    "orbitDirection": 1,
+                    "moonRotation": 1
+                }
+            ]
+        },
+        {
+            "name": "Mars",
+            "size": 10,
+            "distance": 310,
+            "orbitDirection": 1,
+            "planetRotation": 1
+        },
+        {
+            "name": "Jupiter",
+            "size": 50,
+            "distance": 680,
+            "orbitDirection": 1,
+            "planetRotation": 1
+        },
+        {
+            "name": "Saturn",
+            "size": 45,
+            "distance": 790,
+            "orbitDirection": 1,
+            "planetRotation": 1
+        },
+        {
+            "name": "Uranus",
+            "size": 35,
+            "distance": 900,
+            "orbitDirection": 1,
+            "planetRotation": 1
+        },
+        {
+            "name": "Neptune",
+            "size": 30,
+            "distance": 1100,
+            "orbitDirection": 1,
+            "planetRotation": 1
+        }
+    ]
+}

@@ -1,82 +1,103 @@
 class SolarSystem {
-    constructor(config) {
-        this.config = config;
-
-        this.domElement = null;
-
+    constructor() {
+        this.config = SolarSystem.getConfig();
         this.star = this.generateStar();
         this.planets = this.generatePlanets();
     }
 
-    initialize(element = null) {
-        this.domElement = this.getElement(element);
-
-        if (!Array.isArray(this.planets)) {
-            this.planets = this.generatePlanets(this.planets);
-        }
-
-        this.star = this.getStar();
-
-        console.log(this.planets);
-
-        this.draw(this.domElement);
-    }
-
     draw(element) {
-        this.drawStar(element);
-        this.drawPlanets(element);
+        this.drawElement = this.getElement(element);
+        this.setElement();
+        if (!this.config.size) {
+            this.convertDistance();
+        }
+        this.drawStar();
+        this.drawPlanets();
     }
 
     generateStar() {
-        return new Star(this.config.star);
+        return new Star(this.config.star ?? null);
     }
 
     generatePlanets() {
-        console.log(this.config.planets);
-        if (Array.isArray(this.config.planets)) {
-            var planets = [];
-            this.config.planets.forEach((el) => {
-                console.log(el);
-                planets.push(new Planet(el));
-            });
-            return planets;
+        if (!Array.isArray(this.config.planets)) {
+            return this.generateRandomPlanets();
         }
-
-        return this.generateRandomPlanets();
+        this.config.planets.forEach((el) => {
+            planets.push(new Planet(el));
+        });
+        return planets;
     }
 
     generateRandomPlanets() {
-        var planets = [];
+        let planets = [];
         for (let i = 0; i < this.config.planets; i++) {
-            planets[i] = Planet.generateRandomPlanet();
+            planets.push(
+                Planet.generateRandomPlanet(this.star.size, this.config.size)
+            );
         }
         return planets;
     }
 
-    getElement(element) {
-        if (!element) {
-            var element = document.createElement("div");
-            element.classList.add("solarSystem");
-            element.id = "solarSystem";
-            document.querySelector("body").appendChild(element);
+    getElement(element = null) {
+        if (!element || !element.isString()) {
+            return this.createElement();
+        } else {
+            return document.querySelector(element);
         }
+    }
+
+    createElement() {
+        var element = document.createElement("div");
+        element.classList.add("solarSystem");
+        element.id = this.config.name ?? "solarSystem";
+        document.querySelector("body").prepend(element);
         return element;
     }
 
-    drawPlanets(element) {
+    setElement() {
+        this.drawElement.style.width = this.config.size + "px";
+        this.drawElement.style.height = this.config.size + "px";
+    }
+
+    drawPlanets() {
         if (Array.isArray(this.planets)) {
-            this.planets.forEach((el) => el.draw(element));
+            this.planets.forEach((el) => el.draw(this.drawElement));
         }
     }
 
-    drawStar(element) {
-        this.star.draw(element);
+    drawStar() {
+        this.star.draw(this.drawElement);
     }
 
-    getStar() {
-        if (this.config.star) {
-            return new Star(this.config.star);
+    static getConfig() {
+        let configFile = "config/config.json";
+        try {
+            var request = new XMLHttpRequest();
+            request.open("GET", configFile, false);
+            request.send(null);
+            var config = JSON.parse(request.responseText);
+
+            return config;
+        } catch (error) {
+            console.error(error.message);
         }
-        return new Star();
+    }
+
+    convertDistance() {
+        let maxDistance = this.getMaxDistance();
+        this.planets.forEach((el) => {
+            el.distance =
+                this.config.size *
+                (el.distance / (maxDistance + this.star.size));
+        });
+    }
+
+    getMaxDistance() {
+        let distance = 0;
+        this.planets.forEach((el) => {
+            distance = el.distance >= distance ? el.distance : distance;
+        });
+        return distance;
     }
 }

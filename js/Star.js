@@ -19,16 +19,9 @@ class Star {
         baseDomElement.appendChild(starDomElement);
     }
 
-    static getRandom(min, max) {
+    getRandom(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;
-    }
-
-    getCss() {
-        return {
-            width: this.size,
-            height: this.size,
-        };
     }
 }

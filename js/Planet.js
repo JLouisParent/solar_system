@@ -3,11 +3,11 @@ class Planet {
         this.name = planetconfig.name;
         this.size = planetconfig.size;
         this.distance = planetconfig.distance;
-        this.orbit = new Orbit(planetconfig.distance, this);
         this.moon = null;
     }
 
     draw(baseDomElement) {
+        this.orbit = new Orbit(this.distance, this);
         let orbitDomElement = this.orbit.draw(baseDomElement);
 
         let planetDomElement = document.createElement("div");
@@ -25,12 +25,13 @@ class Planet {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    static generateRandomPlanet() {
+    static generateRandomPlanet(min, max) {
         //@todo find an api to generate random name
+        console.log(min, max);
         let planetEl = {};
         planetEl.name = "Planet " + this.getRandom(0, 10);
         planetEl.size = this.getRandom(10, 40);
-        planetEl.distance = this.getRandom(170, 1500);
+        planetEl.distance = this.getRandom(min, max);
         return new this(planetEl);
     }
 
