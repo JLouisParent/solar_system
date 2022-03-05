@@ -6,14 +6,19 @@ class Planet {
         this.direction = planetconfig.orbitDirection;
         this.orbit = new Orbit(planetconfig.distance);
         this.domElement = this.getPlanetDomElement();
+        if (planetconfig.moon) {
+            this.moon = new Moon(planetconfig.moon);
+        }
     }
 
     draw(baseDomElement, displayName) {
-        console.log({ displayName });
         let orbitDomElement = this.orbit.initOrbit(baseDomElement);
         this.setAnimation(orbitDomElement, this.direction, null);
         if (displayName) {
             this.domElement.appendChild(this.getPlanetNameElement());
+        }
+        if (this.moon) {
+            this.moon.draw(this.domElement, displayName);
         }
         orbitDomElement.appendChild(this.domElement);
     }
