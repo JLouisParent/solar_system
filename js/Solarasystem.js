@@ -1,18 +1,19 @@
 class SolarSystem {
-    constructor() {
-        this.config = SolarSystem.getConfig();
-        this.star = this.generateStar();
-        this.planets = this.generatePlanets();
+    constructor(element, configFile) {
+        this.config = this.getConfig(configFile);
+        if (this.config) {
+            this.displayName = this.config.displayNames;
+            this.drawElement = this.getElement(element);
+            this.star = this.generateStar();
+            this.planets = this.generatePlanets();
+        }
     }
 
-    draw(element) {
-        this.drawElement = this.getElement(element);
-        this.setElement();
-        if (!this.config.size) {
-            this.convertDistance();
+    draw() {
+        if (this.config && this.drawElement) {
+            this.drawStar();
+            this.drawPlanets();
         }
-        this.drawStar();
-        this.drawPlanets();
     }
 
     generateStar() {
@@ -21,67 +22,70 @@ class SolarSystem {
 
     generatePlanets() {
         if (!Array.isArray(this.config.planets)) {
-            return this.generateRandomPlanets();
-        }
-        this.config.planets.forEach((el) => {
-            planets.push(new Planet(el));
-        });
-        return planets;
-    }
-
-    generateRandomPlanets() {
-        let planets = [];
-        for (let i = 0; i < this.config.planets; i++) {
-            planets.push(
-                Planet.generateRandomPlanet(this.star.size, this.config.size)
+            return Planet.generateRandomPlanets(
+                this.config.planets,
+                this.star.size,
+                this.config.size
             );
+        } else {
+            let planets = [];
+            this.config.planets.forEach((el) => {
+                planets.push(new Planet(el));
+            });
+            return planets;
         }
-        return planets;
     }
 
     getElement(element = null) {
-        if (!element || !element.isString()) {
-            return this.createElement();
-        } else {
-            return document.querySelector(element);
+        let el = document.querySelector(element);
+        if (!el) {
+            el = document.createElement("div");
+            el.id = element ?? "solarSystem";
         }
+        return this.drawElement(el);
     }
 
-    createElement() {
-        var element = document.createElement("div");
-        element.classList.add("solarSystem");
-        element.id = this.config.name ?? "solarSystem";
-        document.querySelector("body").prepend(element);
-        return element;
-    }
-
-    setElement() {
-        this.drawElement.style.width = this.config.size + "px";
-        this.drawElement.style.height = this.config.size + "px";
+    drawElement(el) {
+        el.classList.add("solarSystem");
+        el.style.width = this.config.size + "px";
+        el.style.height = this.config.size + "px";
+        document.querySelector("body").prepend(el);
+        return el;
     }
 
     drawPlanets() {
-        if (Array.isArray(this.planets)) {
-            this.planets.forEach((el) => el.draw(this.drawElement));
-        }
+        this.planets.forEach((el) =>
+            el.draw(this.drawElement, this.displayName)
+        );
     }
 
     drawStar() {
         this.star.draw(this.drawElement);
     }
 
-    static getConfig() {
-        let configFile = "config/config.json";
+    getConfig(configFile = null) {
+        let file = configFile || "config/config.json";
         try {
             var request = new XMLHttpRequest();
-            request.open("GET", configFile, false);
+            request.open("GET", file, false);
             request.send(null);
             var config = JSON.parse(request.responseText);
-
+            config = this.initializeConfig(config);
             return config;
         } catch (error) {
             console.error(error.message);
+            return null;
         }
+    }
+
+    initializeConfig(config) {
+        let mandatoryElements = ["planets", "star"];
+        mandatoryElements.forEach((el) => {
+            if (!config.hasOwnProperty(el)) {
+                throw new Error(`Missing config field : ${el}`);
+            }
+        });
+        return config;
     }
 
     convertDistance() {

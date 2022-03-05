@@ -3,20 +3,42 @@ class Planet {
         this.name = planetconfig.name;
         this.size = planetconfig.size;
         this.distance = planetconfig.distance;
-        this.moon = null;
+        this.direction = planetconfig.orbitDirection;
+        this.orbit = new Orbit(planetconfig.distance);
+        this.domElement = this.getPlanetDomElement();
     }
 
-    draw(baseDomElement) {
-        this.orbit = new Orbit(this.distance, this);
-        let orbitDomElement = this.orbit.draw(baseDomElement);
+    draw(baseDomElement, displayName) {
+        console.log({ displayName });
+        let orbitDomElement = this.orbit.initOrbit(baseDomElement);
+        this.setAnimation(orbitDomElement, this.direction, null);
+        if (displayName) {
+            this.domElement.appendChild(this.getPlanetNameElement());
+        }
+        orbitDomElement.appendChild(this.domElement);
+    }
 
-        let planetDomElement = document.createElement("div");
-        planetDomElement.classList.add("planet");
-        planetDomElement.id = this.name;
-        planetDomElement.setAttribute("size", this.size);
-        planetDomElement.style.width = this.size + "px";
-        planetDomElement.style.height = this.size + "px";
-        orbitDomElement.appendChild(planetDomElement);
+    getPlanetDomElement() {
+        let domElement = document.createElement("div");
+        domElement.classList.add("planet");
+        domElement.id = this.name;
+        domElement.setAttribute("size", this.size);
+        domElement.style.width = this.size + "px";
+        domElement.style.height = this.size + "px";
+        domElement.style.left = -this.size / 2 + "px";
+
+        this.setAnimation(domElement, -this.direction);
+        return domElement;
+    }
+
+    getPlanetNameElement() {
+        let content = document.createTextNode(this.name);
+        let domElement = document.createElement("div");
+        domElement.classList.add("planet-name");
+        domElement.id = this.name;
+        domElement.appendChild(content);
+
+        return domElement;
     }
 
     static getRandom(min, max) {
@@ -25,20 +47,24 @@ class Planet {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    static generateRandomPlanet(min, max) {
-        //@todo find an api to generate random name
-        console.log(min, max);
-        let planetEl = {};
-        planetEl.name = "Planet " + this.getRandom(0, 10);
-        planetEl.size = this.getRandom(10, 40);
-        planetEl.distance = this.getRandom(min, max);
-        return new this(planetEl);
+    static generateRandomPlanets(nbPlanets, starSize, systemSize) {
+        let planets = [];
+        for (let i = 0; i < nbPlanets; i++) {
+            planets.push(
+                new this({
+                    name: "Planet " + this.getRandom(0, 10),
+                    size: this.getRandom(10, 40),
+                    distance: this.getRandom(starSize, systemSize),
+                    moon: null,
+                })
+            );
+        }
+        return planets;
     }
 
-    getCss() {
-        return {
-            width: this.size,
-            height: this.size,
-        };
+    setAnimation(element, direction, speed) {
+        let time = this.size / 2 + 1;
+        let animationName = direction === 1 ? "clockwise" : "counterclockwise";
+        element.style.animation = time + "s linear infinite " + animationName;
     }
 }

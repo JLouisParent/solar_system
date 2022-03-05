@@ -1,32 +1,20 @@
 class Orbit {
-    constructor(size, planet) {
+    constructor(size, direction) {
         this.size = size;
-        this.planet = planet;
+        this.wrapperElement = this.createElement("orbit-wrapper");
+        this.element = this.createElement("orbit");
+        this.direction = direction;
     }
 
-    draw(baseDomElement) {
-        let orbitDomElement = document.createElement("div");
-
-        let orbitWrapperElement = this.createBlankElement(baseDomElement);
-
-        orbitDomElement.classList.add("orbit");
-        orbitDomElement.setAttribute("planet", this.planet.name);
-        orbitDomElement.setAttribute("size", this.size);
-        orbitDomElement.style.width = this.size + "px";
-        orbitDomElement.style.height = this.size + "px";
-
-        let time = this.getTime();
-        orbitDomElement.style.animation = time + "s linear infinite spin";
-
-        orbitWrapperElement.appendChild(orbitDomElement);
-
-        return orbitDomElement;
+    draw() {
+        this.baseElement.appendChild(this.wrapperElement);
+        this.wrapperElement.appendChild(this.element);
     }
 
-    getTime() {
-        let max = 1500;
-
-        return this.size / 300 + 1;
+    initOrbit(element) {
+        this.baseElement = element;
+        this.draw();
+        return this.element;
     }
 
     getRandom(min, max) {
@@ -35,13 +23,12 @@ class Orbit {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    createBlankElement(baseDomElement) {
+    createElement(cssClass) {
         let orbitDomElement = document.createElement("div");
-        orbitDomElement.classList.add("orbit-wrapper");
+        orbitDomElement.classList.add(cssClass);
         orbitDomElement.setAttribute("size", this.size);
         orbitDomElement.style.width = this.size + "px";
         orbitDomElement.style.height = this.size + "px";
-        baseDomElement.appendChild(orbitDomElement);
         return orbitDomElement;
     }
 }
