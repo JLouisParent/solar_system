@@ -26,13 +26,14 @@
             "size": 13,
             "distance": 600,
             "orbitDirection": 1,
-            "moon": {
-                "name": "Moon",
-                "size": 3,
-                "distance": 50,
-                "orbitDirection": 1,
-                "moonRotation": 1
-            }
+            "moons": [
+                {
+                    "name": "Moon",
+                    "size": 4,
+                    "distance": 50,
+                    "orbitDirection": 1
+                }
+            ]
         },
         {
             "name": "Mars",
@@ -44,7 +45,27 @@
             "name": "Jupiter",
             "size": 50,
             "distance": 1100,
-            "orbitDirection": 1
+            "orbitDirection": 1,
+            "moons": [
+                {
+                    "name": "Europe",
+                    "size": 2,
+                    "distance": 60,
+                    "orbitDirection": 1
+                },
+                {
+                    "name": "Callisto",
+                    "size": 2,
+                    "distance": 70,
+                    "orbitDirection": 1
+                },
+                {
+                    "name": "Io",
+                    "size": 3,
+                    "distance": 90,
+                    "orbitDirection": 1
+                }
+            ]
         },
         {
             "name": "Saturn",
@@ -62,7 +83,7 @@
             "name": "Neptune",
             "size": 30,
             "distance": 1700,
-            "orbitDirection": -1
+            "orbitDirection": 1
         }
     ]
 }

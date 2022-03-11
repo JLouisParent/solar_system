@@ -1,4 +1,7 @@
-class SolarSystem {
+import Star from "./Star.js";
+import Planet from "./Planet.js";
+
+export default class SolarSystem {
     constructor(element, configFile) {
         this.config = this.getConfig(configFile);
         if (this.config) {
@@ -64,7 +67,7 @@ class SolarSystem {
     }
 
     getConfig(configFile = null) {
-        let file = configFile || "config/config.json";
+        let file = configFile || "../config/config.json";
         try {
             var request = new XMLHttpRequest();
             request.open("GET", file, false);

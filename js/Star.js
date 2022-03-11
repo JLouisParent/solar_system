@@ -1,4 +1,4 @@
-class Star {
+export default class Star {
     constructor(starconfig = null) {
         if (starconfig) {
             this.name = starconfig.name;

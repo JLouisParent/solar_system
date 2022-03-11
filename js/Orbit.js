@@ -1,4 +1,4 @@
-class Orbit {
+export default class Orbit {
     constructor(size, direction) {
         this.size = size;
         this.wrapperElement = this.createElement("orbit-wrapper");
