@@ -1,0 +1,11 @@
+1
+Solar system to take json or filepath as constructor arguments
+solar system draw to take querySelector or element
+Make general config global
+Redo all celestial body to be neutral
+
+2
+Add canvas drawing option
+
+3
+Convert to typescript

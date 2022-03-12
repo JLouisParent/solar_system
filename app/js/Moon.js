@@ -1,4 +1,5 @@
 import CelestialBody from "./CelestialBody";
+
 export default class Moon extends CelestialBody {
     constructor(moonconfig) {
         super(moonconfig);
