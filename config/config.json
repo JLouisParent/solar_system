@@ -1,88 +1,90 @@
 {
-    "name": "solarSystem",
-    "size": 1200,
-    "speed": 1,
-    "baseElement": "#solarSystem",
-    "displayNames": true,
+    "global": {
+        "size"            : 1200,
+        "speed"           : 20,
+        "nameDisplay"     : true,
+        "displayOrbit"    : true,
+        "displayMoonOrbit": false
+    },
     "star": {
         "name": "Sun",
-        "size": 100
+        "size": 60
     },
     "planets": [
         {
-            "name": "Mercury",
-            "size": 6,
-            "distance": 200,
+            "name"          : "Mercury",
+            "size"          : 6,
+            "distance"      : 100,
             "orbitDirection": 1
         },
         {
-            "name": "Venus",
-            "size": 12,
-            "distance": 400,
+            "name"          : "Venus",
+            "size"          : 12,
+            "distance"      : 250,
             "orbitDirection": 1
         },
         {
-            "name": "Earth",
-            "size": 13,
-            "distance": 600,
+            "name"          : "Earth",
+            "size"          : 13,
+            "distance"      : 400,
             "orbitDirection": 1,
-            "moons": [
+            "moons"         : [
                 {
-                    "name": "Moon",
-                    "size": 4,
-                    "distance": 50,
+                    "name"          : "Moon",
+                    "size"          : 4,
+                    "distance"      : 70,
                     "orbitDirection": 1
                 }
             ]
         },
         {
-            "name": "Mars",
-            "size": 10,
-            "distance": 800,
+            "name"          : "Mars",
+            "size"          : 10,
+            "distance"      : 550,
             "orbitDirection": 1
         },
         {
-            "name": "Jupiter",
-            "size": 50,
-            "distance": 1100,
+            "name"          : "Jupiter",
+            "size"          : 50,
+            "distance"      : 800,
             "orbitDirection": 1,
-            "moons": [
+            "moons"         : [
                 {
-                    "name": "Europe",
-                    "size": 2,
-                    "distance": 60,
+                    "name"          : "Europe",
+                    "size"          : 2,
+                    "distance"      : 60,
                     "orbitDirection": 1
                 },
                 {
-                    "name": "Callisto",
-                    "size": 2,
-                    "distance": 70,
+                    "name"          : "Callisto",
+                    "size"          : 2,
+                    "distance"      : 70,
                     "orbitDirection": 1
                 },
                 {
-                    "name": "Io",
-                    "size": 3,
-                    "distance": 90,
+                    "name"          : "Io",
+                    "size"          : 3,
+                    "distance"      : 90,
                     "orbitDirection": 1
                 }
             ]
         },
         {
-            "name": "Saturn",
-            "size": 45,
-            "distance": 1300,
+            "name"          : "Saturn",
+            "size"          : 45,
+            "distance"      : 1000,
             "orbitDirection": 1
         },
         {
-            "name": "Uranus",
-            "size": 35,
-            "distance": 1500,
+            "name"          : "Uranus",
+            "size"          : 35,
+            "distance"      : 1200,
             "orbitDirection": 1
         },
         {
-            "name": "Neptune",
-            "size": 30,
-            "distance": 1700,
+            "name"          : "Neptune",
+            "size"          : 30,
+            "distance"      : 1400,
             "orbitDirection": 1
         }
     ]

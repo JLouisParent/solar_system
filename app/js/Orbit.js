@@ -1,34 +1,28 @@
 export default class Orbit {
     constructor(size, direction) {
-        this.size = size;
-        this.wrapperElement = this.createElement("orbit-wrapper");
-        this.element = this.createElement("orbit");
-        this.direction = direction;
+        this.size            = size;
+        this.lineElement     = this.createElement("orbit-line");
+        this.orbitDomElement = this.createElement("orbit");
+        this.direction       = direction;
     }
 
-    draw() {
-        this.baseElement.appendChild(this.wrapperElement);
-        this.wrapperElement.appendChild(this.element);
+    draw(displayOrbit) {
+        if (!displayOrbit) this.lineElement.classList.add("transparent");
+        this.baseDomElement.appendChild(this.lineElement);
+        this.lineElement.appendChild(this.orbitDomElement);
     }
 
-    initOrbit(element) {
-        this.baseElement = element;
-        this.draw();
-        return this.element;
-    }
-
-    getRandom(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
+    initOrbit(systemDomElement) {
+        this.baseDomElement = systemDomElement;
+        return this.orbitDomElement;
     }
 
     createElement(cssClass) {
-        let orbitDomElement = document.createElement("div");
-        orbitDomElement.classList.add(cssClass);
-        orbitDomElement.setAttribute("size", this.size);
-        orbitDomElement.style.width = this.size + "px";
-        orbitDomElement.style.height = this.size + "px";
-        return orbitDomElement;
+        let orbitGenericElement = document.createElement("div");
+        orbitGenericElement.classList.add(cssClass);
+        orbitGenericElement.setAttribute("size", this.size);
+        orbitGenericElement.style.width  = this.size + "px";
+        orbitGenericElement.style.height = this.size + "px";
+        return orbitGenericElement;
     }
 }

@@ -2,7 +2,7 @@ body {
     //background-image: url('background.jpg');
     background-color: #202124;
     background-size: cover;
-    // overflow: hidden;
+    overflow: hidden;
 }
 
 .solarSystem {
@@ -30,7 +30,7 @@ body {
 
 }
 
-.orbit-wrapper {
+.orbit-line {
     position: absolute;
 
 
@@ -42,6 +42,10 @@ body {
     top: 50%;
 
     transform: translate(-50%, -50%);
+
+    &.transparent {
+        border-color: transparent;
+    }
 }
 
 .orbit {
